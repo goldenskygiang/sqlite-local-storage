@@ -16,7 +16,7 @@
       } else {
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = false;
-        xhr.open('GET', 'https://raw.githubusercontent.com/goldenskygiang/sqlite-local-storage/master/data', true);
+        xhr.open('GET', 'https://cdn.jsdelivr.net/gh/goldenskygiang/sqlite-local-storage/data', true);
         xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
         xhr.responseType = 'arraybuffer';
         xhr.onreadystatechange = function() {
