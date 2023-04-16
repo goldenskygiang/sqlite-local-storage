@@ -17,7 +17,7 @@
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = false;
         xhr.open('GET', 'https://cdn.jsdelivr.net/gh/goldenskygiang/sqlite-local-storage/data', true);
-        xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+        //xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
         xhr.responseType = 'arraybuffer';
         xhr.onreadystatechange = function() {
           if (xhr.readyState == 4 && xhr.status == 200) {
