@@ -8,6 +8,7 @@
   <h1>Read SQLite File Example</h1>
   <div id="data"></div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
   <script>
     function readDatabase() {
       var dbContent = localStorage.getItem('dbContent');
@@ -41,8 +42,6 @@
       document.getElementById('data').innerHTML = html;
     }
   </script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
 </body>
 </html>
 <!-- Coded by ChatGPT -->
