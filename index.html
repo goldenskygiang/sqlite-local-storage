@@ -15,7 +15,7 @@
         loadData(dbContent);
       } else {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'http://example.com/database.sqlite', true);
+        xhr.open('GET', 'https://github.com/goldenskygiang/sqlite-local-storage/blob/master/data?raw=true', true);
         xhr.responseType = 'arraybuffer';
         xhr.onreadystatechange = function() {
           if (xhr.readyState == 4 && xhr.status == 200) {
