@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Read SQLite File</title>
+</head>
+<body onload="readDatabase()">
+  <h1>Read SQLite File Example</h1>
+  <div id="data"></div>
+
+  <script>
+    function readDatabase() {
+      var dbContent = localStorage.getItem('dbContent');
+      if (dbContent) {
+        loadData(dbContent);
+      } else {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'http://example.com/database.sqlite', true);
+        xhr.responseType = 'arraybuffer';
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+            dbContent = xhr.response;
+            localStorage.setItem('dbContent', dbContent);
+            loadData(dbContent);
+          }
+        };
+        xhr.send();
+      }
+    }
+
+    function loadData(dbContent) {
+      var db = new SQL.Database(new Uint8Array(dbContent));
+      var result = db.exec("SELECT * FROM todo");
+      var html = "<table>";
+      for (var i = 0; i < result[0].values.length; i++) {
+        html += "<tr><td>" + result[0].values[i][0] + "</td><td>" + result[0].values[i][1] + "</td></tr>";
+      }
+      html += "</table>";
+      document.getElementById('data').innerHTML = html;
+    }
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.4.0/sql.js.min.js"></script>
+</body>
+</html>
+<!-- Coded by ChatGPT -->
