@@ -11,8 +11,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
   <script>
     function readDatabase() {
-      var dbContent = localStorage.getItem('dbContent');
-      if (dbContent) {
+      var base64_db = localStorage.getItem('dbContent');
+      if (!base64_db) {
+        var dbContent = atob(base64_db);
         loadData(dbContent);
       } else {
         var xhr = new XMLHttpRequest();
@@ -22,7 +23,8 @@
         xhr.onreadystatechange = async function() {
           if (xhr.readyState == 4 && xhr.status == 200) {
             dbContent = xhr.response;
-            localStorage.setItem('dbContent', dbContent);
+            base64_db = btoa(String.fromCharCode.apply(null, new Uint8Array(dbContent)));
+            localStorage.setItem('dbContent', base64_db);
             loadData(dbContent);
           }
         };
