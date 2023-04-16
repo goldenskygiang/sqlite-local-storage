@@ -18,9 +18,8 @@
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = false;
         xhr.open('GET', 'https://cdn.jsdelivr.net/gh/goldenskygiang/sqlite-local-storage/data', true);
-        //xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
         xhr.responseType = 'arraybuffer';
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = async function() {
           if (xhr.readyState == 4 && xhr.status == 200) {
             dbContent = xhr.response;
             localStorage.setItem('dbContent', dbContent);
@@ -31,15 +30,19 @@
       }
     }
 
-    function loadData(dbContent) {
-      var db = new SQL.Database(new Uint8Array(dbContent));
-      var result = db.exec("SELECT * FROM Todo");
-      var html = "<table>";
-      for (var i = 0; i < result[0].values.length; i++) {
-        html += "<tr><td>" + result[0].values[i][0] + "</td><td>" + result[0].values[i][1] + "</td></tr>";
-      }
-      html += "</table>";
-      document.getElementById('data').innerHTML = html;
+    async function loadData(dbContent) {
+      initSqlJs({
+        locateFile: filename => `https://sql.js.org/dist/${filename}`
+      }).then(function (SQL) {
+        var db = new SQL.Database(new Uint8Array(dbContent));
+        var result = db.exec("SELECT * FROM Todo");
+        var html = "<table>";
+        for (var i = 0; i < result[0].values.length; i++) {
+          html += "<tr><td>" + result[0].values[i][0] + "</td><td>" + result[0].values[i][1] + "</td></tr>";
+        }
+        html += "</table>";
+        document.getElementById('data').innerHTML = html;
+      });
     }
   </script>
 </body>
