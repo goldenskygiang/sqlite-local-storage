@@ -12,7 +12,7 @@
   <script>
     function readDatabase() {
       var base64_db = localStorage.getItem('dbContent');
-      if (!base64_db) {
+      if (base64_db) {
         var dbContent = atob(base64_db);
         loadData(dbContent);
       } else {
