@@ -20,7 +20,7 @@
         xhr.withCredentials = false;
         xhr.open('GET', 'https://cdn.jsdelivr.net/gh/goldenskygiang/sqlite-local-storage/data', true);
         xhr.responseType = 'arraybuffer';
-        xhr.onreadystatechange = async function() {
+        xhr.onreadystatechange = function() {
           if (xhr.readyState == 4 && xhr.status == 200) {
             dbContent = xhr.response;
             base64_db = btoa(String.fromCharCode.apply(null, new Uint8Array(dbContent)));
@@ -32,7 +32,7 @@
       }
     }
 
-    async function loadData(dbContent) {
+    function loadData(dbContent) {
       initSqlJs({
         locateFile: filename => `https://sql.js.org/dist/${filename}`
       }).then(function (SQL) {
